@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src = "../build/react.js"></script>
+        <script src = "../build/react-dom.js"></script>
+        <script src = "../build/browser.min.js"></script>
+    </head>
+    <body>
+        <div id = "example"></div>
+        <!-- 注意1：这里的<script>标签的type属性为text/babel,这是因为React独有的JSX语法，跟JS不兼容。凡是使用JSX的地方，都要加上type="text/bable"-->
+        <!-- 注意2：上面代码有三个库：react.js、react-dom.js和Browser.js,他们必须首先加载。其中，React.js是React的核心库，React-dom.js是提供
+        与DOM相关的功能，Browser.js的作用是将JSX语法转换为JS语法，这一步消耗时间，实际上线的时候，应该由服务器完成。-->
+        <!-- 注意3：$ babel src --out-dir build 命令可以将src子目录的js文件进行语法转换，转换后的文件全部放在build子目录。-->
+        <script type="text/babel">
+            //our code goes here!!
+        </script>
+    </body>
+</html>
