@@ -4,6 +4,7 @@
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
+    <!-- 用户在表单填入的内容，属于用户跟组件的互动，所以不能用this.props读取。-->
   </head>
   <body>
     <script type="text/babel">
@@ -27,5 +28,8 @@
 
       ReactDOM.render(<Input/>, document.body);
     </script>
+  <!-- 上面代码中，文本输入框的值，不能用this.props.value读取，而要定义一个onChange事件的回调函数，
+       通过event.target.value读取用户输入的值。textarea元素、select元素、radio元素都属于这种情况
+  -->
   </body>
 </html>

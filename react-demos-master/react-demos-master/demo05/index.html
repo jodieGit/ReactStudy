@@ -4,6 +4,7 @@
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
+    <!-- this.props对象的属性与组件的属性一一对应，但是有一个例外，就是this.props.children属性。-->
   </head>
   <body>
     <script type="text/babel">
@@ -12,6 +13,7 @@
           return (
             <ol>
               {
+//                可以通过this.props.children读取NoteList组件下的两个span子节点。
                 React.Children.map(this.props.children, function (child) {
                   return <li>{child}</li>;
                 })
@@ -29,6 +31,16 @@
         document.body
       );
     </script>
+  <!-- 注意事项：this.props.children的值有三种可能：
+       1.如果当前组件没有子节点，它就是underfined;
+       2.如果有一个子节点，数据类型就是object;
+       3.如果有多个子节点，数据类型就是array。
+       所以处理this.props.children的时候要小心
+  -->
+  <!-- React提供了一个工具方法React.Children来处理this.props.children。我们可以用
+       React.Children.map来遍历子节点，而不用担心this.props.children的数据类型是
+       underfined还是object.
+  -->
   </body>
 </html>
 

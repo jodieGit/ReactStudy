@@ -4,6 +4,9 @@
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
+    <!-- 组件免不了要与用户互动，React的一大创新，就是将组件看成是一个状态机，一开始有一个初识状态，然后
+         用户互动，导致状态变化，从而触发重新渲染UI
+    -->
   </head>
   <body>
     <div id="example"></div>
@@ -30,6 +33,12 @@ ReactDOM.render(
   document.getElementById('example')
 );
     </script>
+  <!-- LikeButton组件，它的getInitialState方法用于定义初始状态，也就是一个对象，这个对象可以通过
+       this.state属性读取。当用户点击组件，导致状态变化，this.setState方法就修改状态值，每次修改后，
+       自动调用this.render方法，再次渲染组件。
+       由于this.props和this.state都用于描述组件的特性，可能会产生混淆。一个简单的区分方法是，this.props
+       表示那些一旦定义，就不再改变的特性，而this.state是会随着用户变动而产生变化的特性。
+  -->
   </body>
 </html>
 
