@@ -31,7 +31,7 @@ var Comment = React.createClass({
 });
 
 var CommentList = React.createClass({
-  render: function(){
+  render: function() {
     return (
       <div className = "commentList">
         <Comment author = "Pete Hunt">This is one comment</Comment>
