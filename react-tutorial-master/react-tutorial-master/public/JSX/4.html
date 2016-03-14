@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>富交互性的动态用户页面</title>
+    <script src="http://fb.me/react-0.13.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.13.0.js"></script>
+</head>
+<body>
+    <div class="example"></div>
+    <script type="text/jsx">
+      var LinkButton = React.createClass({
+        getInitialState: function() {
+          return {liked: false};
+        },
+        handleClick: function(event) {
+          this.setState({liked: !this.state.liked});
+        },
+        render: function() {
+          var text = this.state.liked ? 'like' : 'haven\'t liked';
+          return (
+            <p onclick = {this.handleClick}>
+              You {text} this.Click to toggle.
+            </p>
+          );
+        }
+      });
+
+      React.render(
+        <LinkButton/>,
+        document.getElementById("example")
+      );
+    </script>
+</body>
+</html>
