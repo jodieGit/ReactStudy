@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSX的延展属性</title>
+</head>
+<body>
+    <script type="text/jsx">
+      //如果你事先知道组件需要的全部Props（属性），JSX很容易这样写：
+      var component = <Component foo = {x} bar = {y} />;
+      //不要随意修改props属性
+    </script>
+
+    <!-- 延展属性-->
+    <script type="text/jsx">
+      var props = {};
+      props.foo = x;
+      props.bar = y;
+      var component = <Component {...props} />;
+    //传入对象的属性会被复制到组件内
+    //它能多次使用，也可以和其他属性一起用。注意顺序很重要，后面的会覆盖前面的。
+    </script>
+</body>
+</html>

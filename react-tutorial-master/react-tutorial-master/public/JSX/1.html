@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>深入理解JSX</title>
+  <script src="http://fb.me/react-0.13.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.13.0.js"></script>
+</head>
+<body>
+
+  <!-- HTML标签与React组件对比-->
+  <script type="text/jsx">
+    //React可以渲染HTML标签（strings）或React组件（classes）
+    //要渲染HTML标签，只需要JSX里使用小写字母开头的标签名。
+    var myDivElement = <div className = 'foo'>;
+    React.render(myDivElement, document.body);
+
+    <!-- 要渲染React组件，只需创建一个大写字母开头的本地变量-->
+    var MyComponent = React.createClass({/*....*/});
+    var myElement = <MyComponent someProperty = {true} />;
+    React.render(myElement, document.body);
+
+    <!-- 注意：React的JSX里约定分别使用首字母大、小写来区分本地组件的类和HTML标签；
+    由于JSX就是javascript,一些标识像calss和for不建议作为XML属性名。作为替换，ReactDom
+    使用className和htmlFor来做对应的属性。-->
+  </script>
+
+  <!-- 转换-->
+  <script type="text/jsx">
+    var Nav;
+    //输入(jsx)
+    var app = <Nav color = "blue"/>
+    //输出（js）
+    var app = React.createElement(Nav, {color: "blue"});
+    //要想使用<Nav/>,Nav变量一定要在作用区间内
+
+    //JSX也支持使用XML语法定义子节点：
+    var Nav, Profile;
+    //输入 （jsx）
+    var app = <Nav color = "blue"><Profile>click</Profile></Nav>;
+    //输出  （js）
+    var app = React.createElement(
+      Nav,
+      {color: "blue"},
+      React.createElement(Profile, null, 'click')
+    );
+    //JSX表达式总是会当做ReactElement执行。具体的实现细节可能不同。一种优化的模式是把
+    //ReactElement当做一个行内的对象自变量形式来绕过React.createElement里的校验代码
+  </script>
+
+  <!-- Javascript表达式-->
+
+  <!-- 属性表达式:要使用Javascript表达式作为属性，只需要把这个表达式用一对大括号（{}）包起来，不要用引号-->
+  <script type="text/jsx">
+    //输入（JSX）
+    var person =  <Person name = {window.isLoggedIn ? window.name : ''} />;
+    //输出（js）
+    var person = React.createElement(
+      Person,
+      {name: window.isLoggedIn ? window.name : ''}
+    );
+  </script>
+
+  <script type="text/jsx">
+    //输入 （jsx）
+    var content = <Container>{window.isLoggedIn ? <Nav/> : <Login/>}</Container>;
+    //输出 （js）
+    var content = React.createElement(
+      Container,
+      null,
+      window.isLoggedIn ? React.createElement(Nav) ：React.createElement (Login)
+    );
+  </script>
+</body>
+</html>
+
+
+
+

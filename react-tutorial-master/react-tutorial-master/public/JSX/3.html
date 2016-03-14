@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSX陷阱</title>
+</head>
+<body>
+    <!--HTML实体-->
+    <script type="text/jsx">
+      <div>First &middot; Second</div>
+      //如果想在jsx表达式中显示HTML实体，可以会遇到二次转义的问题，因为React默认
+      //会转义所有字符串，为了防止各种XSS攻击
+
+      //错误
+      <div>{'First &middot; Second'}</div>
+
+      //有很多绕过的方法。最简单的是直接用Unicode字符。这时要确保文件是UTF-8
+      //编码且网页也指定为UTF-8编码
+      <div>{'First . Second'}</div>
+
+      //安全的做法是先找到实体的Unicode编码，然后在js字符串里使用
+
+      <div>{'First \u0067 Second'}</div>
+      <div>{'First ' + String.fromCharCode(183) + ' Second'}</div>
+
+      //可以在数组中混合使用字符串和JSX元素
+      <div>{['First ',<span>&middot;</span>, ' Second']}</div>
+
+      //万不得已，可以直接使用原始的HTML
+      <div dangerouslySetInnerHTML = {{__html: 'First &middot; Second'}}></div>
+    </script>
+
+    <!-- 自定义HTML属性-->
+    <!-- 如果往原生的HTML元素里传入HTML规范不存在的属性，React不会显示它们，如果需要使用自定义属性，
+    要加 data- 前缀-->
+    <script type="text/jsx">
+      <div data-custom-attribute = "foo"></div>
+      //以aria-开头的【网络无障碍】属性可以正常使用
+      <div aria-hidden = {true}/>
+    </script>
+</body>
+</html>
