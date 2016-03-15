@@ -7,9 +7,9 @@
     <script src="http://fb.me/JSXTransformer-0.13.0.js"></script>
 </head>
 <body>
-    <div class="example"></div>
+    <div id="example"></div>
     <script type="text/jsx">
-      var LinkButton = React.createClass({
+      var LikeButton = React.createClass({
         getInitialState: function() {
           return {liked: false};
         },
@@ -19,16 +19,16 @@
         render: function() {
           var text = this.state.liked ? 'like' : 'haven\'t liked';
           return (
-            <p onclick = {this.handleClick}>
-              You {text} this.Click to toggle.
+            <p onClick={this.handleClick}>
+              You {text} this. Click to toggle.
             </p>
           );
         }
       });
 
       React.render(
-        <LinkButton/>,
-        document.getElementById("example")
+        <LikeButton />,
+        document.getElementById('example')
       );
     </script>
 </body>

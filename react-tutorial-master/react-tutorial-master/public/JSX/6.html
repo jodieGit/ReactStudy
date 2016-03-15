@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>可重复组件</title>
+    <script src="http://fb.me/react-0.13.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.13.0.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <!-- Mixins: 组件是React里复用代码的最佳方式，但是有时一些复杂的组件间也需要公用一些功能。有时会被称为
+    跨切面关注点。React使用Mixins来解决这类问题-->
+    <script type="text/jsx">
+      var SetIntervalMixin = {
+        componentWillMount: function() {
+          this.intervals = [];
+        },
+        setInterval: function() {
+          this.intervals.push(setInterval.apply(null, arguments));
+        },
+        componentWillUnmount: function() {
+          this.intervals.map(clearInterval);
+        }
+      };
+
+      var TickTock = React.createClass({
+        mixins: [SetIntervalMixin],
+        getInitialState: function() {
+          return {seconds: 0};
+        },
+        componentDidMount: function() {
+          this.setInterval(this.tick, 1000);//调用mixin方法
+        },
+        tick: function() {
+          this.setState({seconds: this.state.seconds + 1});
+        },
+        render: function() {
+          return(
+            <p>
+              React has been running for {this.state.seconds} seconds.
+            </p>
+          );
+        }
+      });
+
+      React.render(
+        <TickTock/>,
+        document.getElementById('example')
+      );
+    </script>
+</body>
+</html>

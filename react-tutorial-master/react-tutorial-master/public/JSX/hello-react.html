@@ -40,8 +40,8 @@
     //方便起见，你可以创建基于自定义组价的速记工厂方法
       var Factory = React.createFactory(ComponentClass);
     //      ....
-    var root = Factory({custom: 'prop'});
-      React.render(root, document.body);
+      var root = Factory({custom: 'prop'});
+        React.render(root, document.body);
 
     //React 已经为HTML标签提供内置工厂方法
       var root = React.DOM.ul({chassName: 'my-list'}, ReactDOM.li(null, 'Text Content'));
