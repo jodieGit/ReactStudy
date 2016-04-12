@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>表单组件</title>
+    <script src="http://fb.me/react-0.13.0.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.13.0.js"></script>
+</head>
+<body>
+
+    <!-- 表单组件：诸如<input> <textarea>这样的表单组件不同于其他组件，因为他们可以通过用户发生
+    变化。这些组件提供的界面使相应用户交互的表单数据处理更加容易-->
+
+    <!-- 交互属性：表单组件支持几个受用户交互影响的属性：
+    value: 用于<input> <textarea>组件
+    checked: 用于类型为checkbox 或者radio的input组件
+    selected: 用于<option>组件
+    在html中，<textarea>的值通过子节点设置；在React中则应该使用value代替。表单组件可以通过
+    onChange 回调函数来监听组件变化。当用户做出以下交互时，onChange执行并通过浏览器做出相应：
+      <input>或<textarea>的value发生变化时。
+      <input>的checked状态改变时。
+      <option>的selected状态改变时。-->
+
+    <!-- 受限组件：设置了value的<input>是一个受限组件，对于受限的<input>,渲染出来的html元素始终
+    保持value属性的值-->
+    <script type="text/jsx">
+      render: function() {
+        return <input type = "text" value = "Hello!"/>
+      }
+    </script>
+    <!--上面的代码将渲染出一个值为Hello!的input元素。用户在渲染出来的元素里输入任何值都不起作用。
+    因为React已经赋值Hello!。如果想相应更新用户输入的值，就得使用onChange事件：-->
+    <script type="text/jsx">
+      getInitialState: function() {
+        return {value: 'Hello!'};
+      },
+      handleChange: function(event) {
+        this.setState({value: event.target.value});
+      },
+      render: function() {
+        var value = this.state.value;
+        return <input type="text" value = {value} onChange = {this.handleChange}/>
+      }
+    </script>
+    <!--上面的代码中，React将用户输入的值更新到<input>组件的value属性。这样实现相应或者验证
+    用户输入的界面就很容易了-->
+    <script type="text/jsx">
+      this.setState({value: event.target.value.substr(0, 140)});
+    </script>
+    <!--上面的代码接受用户输入，并截取前140个字符-->
+
+    <!-- 不受限制组件：没有设置value(或者设为null)的input组件时一个不受限组件。对于不受限的<input>
+    组件，渲染出来的元素直接反应用户输入：-->
+    <script type="text/jsx">
+      render: function() {
+        return <input type="text"/>
+      }
+    </script>
+    <!--上面的代码将渲染出一个空值的初始值，可以使用defaultValue属性：-->
+    <script type="text/jsx">
+      return <input type="text" defaultValue = "Hello!"/>
+    </script>
+    <!-- 上面的代码渲染出来的元素和受限组件一样有一个初始值，但这个值用户可以改变并会反应到界面上。
+    同样，radio chekcbox input 支持defaultChecked属性。select支持defaultValue属性-->
+    <script type="text/jsx">
+      render: function() {
+        <div>
+          <input type = "radio" name = "opt" defaultChecked/> Option 1
+          <input type="radio" name = "opt"/> Option 2
+          <select defaultValue = "C">
+            <option value="A">Apple</option>
+            <option value="B">Banana</option>
+            <option value="C">Cranberry</option>
+          </select>
+        </div>
+      }
+    </script>
+</body>
+</html>
